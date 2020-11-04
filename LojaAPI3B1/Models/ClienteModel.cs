@@ -9,7 +9,7 @@ namespace LojaAPI3B1.Models
     {
 
         private int id_cliente;
-        private string nom_cliente;
+        private string nome_cliente;
         private string sobrenome_cliente;
         private string email_cliente;
 
@@ -18,16 +18,16 @@ namespace LojaAPI3B1.Models
 
         }
 
-        public ClienteModel(int id_cliente, string nom_cliente, string sobrenome_cliente, string email_cliente)
+        public ClienteModel(int id_cliente, string nome_cliente, string sobrenome_cliente, string email_cliente)
         {
             this.id_cliente = id_cliente;
-            this.nom_cliente = nom_cliente;
+            this.nome_cliente = nome_cliente;
             this.sobrenome_cliente = sobrenome_cliente;
             this.email_cliente = email_cliente;
         }
 
         public int Id_cliente { get => id_cliente; set => id_cliente = value; }
-        public string Nom_cliente { get => nom_cliente; set => nom_cliente = value; }
+        public string Nome_cliente { get => nome_cliente; set => nome_cliente = value; }
         public string Sobrenome_cliente { get => sobrenome_cliente; set => sobrenome_cliente = value; }
         public string Email_cliente { get => email_cliente; set => email_cliente = value; }
     }
