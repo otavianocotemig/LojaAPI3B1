@@ -1,5 +1,6 @@
 ﻿using LojaAPI3B1.DAL;
 using LojaAPI3B1.Models;
+using Newtonsoft.Json;
 using ProjetoLogin3D2.BLL;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,12 @@ namespace LojaAPI3B1.Controllers
         // Lista Provisória para Armazenar os clientes
         private static List<ClienteModel> listaClientes = new List<ClienteModel>();
 
-        // Metodo responsavel pelo Post no Cliente
-      
+
+        // <summary>
+        /// Looks up some data by ID.
+        /// Metodo responsavel pelo Post no Cliente
+        /// </summary>
+        /// <param name="id">The ID of the data.</param>
         [AcceptVerbs("POST")]
         [Route("CadastrarCliente")]
         public string CadastrarCliente(ClienteModel cliente)
@@ -44,20 +49,23 @@ namespace LojaAPI3B1.Controllers
             return listaClientes;
         }
 
+
         // Metodo para Listar o Cliente pelo Código
         [AcceptVerbs("GET")]
         [Route("listarClientesPorCodigo/{id_cliente}")]
-        public ClienteModel listarClientesPorCodigo(int id_cliente)
+        public string listarClientesPorCodigo(int id_cliente)
         {
             ClienteModel cliente = listaClientes.Where(n => n.Id_cliente == id_cliente)
                                                        .Select(n => n)
                                                        .FirstOrDefault();
             // Lista cliente no Banco de Dados pelo código
             string sql = string.Format($@"select id_cliente, nome_cliente sobrenome_cliente, email_cliente from tbl_cliente where " + id_cliente);
-            
-           // ClienteModel retornobanco = daoBanco.executarConsulta(sql);
+            string jsonString = string.Empty;
+            jsonString = JsonConvert.SerializeObject(daoBanco.executarConsulta(sql));
+            return jsonString;
+            // ClienteModel retornobanco = daoBanco.executarConsulta(sql);
 
-            return cliente;
+           // return cliente;
         }
 
         // Metodo para deletar cliente
@@ -86,6 +94,13 @@ namespace LojaAPI3B1.Controllers
             return "Cliente Alterado com sucesso";
         }
 
+        // Metodo para verificar usuário no sistema
+        [AcceptVerbs("POST")]
+        [Route("verificarUsuario")]
+        public Boolean verificarUsuario(ClienteModel cliente)
+        {
+            return bllcliente.Autenticar(cliente);
+        }
 
     }
 }
