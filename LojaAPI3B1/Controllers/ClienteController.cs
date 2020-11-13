@@ -13,6 +13,7 @@ namespace LojaAPI3B1.Controllers
 {
     
     // Definição do Endpoint
+    [Authorize]
     [RoutePrefix("api/cliente")]
     public class ClienteController : ApiController
     {
